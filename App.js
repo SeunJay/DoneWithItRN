@@ -1,7 +1,8 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TextInput, View, Text } from 'react-native';
 import AppButton from './app/components/AppButton';
 import AppText from './app/components/AppText';
+import AppTextInput from './app/components/AppTextInput';
 import Card from './app/components/Card';
 import Icon from './app/components/Icon';
 import ListItem from './app/components/ListItem';
@@ -14,7 +15,13 @@ import ViewImageScreen from './app/screens/ViewImageScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 
 export default function App() {
-  return <ListingsScreen />;
+  const [firstName, setFirstName] = useState('');
+
+  return (
+    <Screen>
+      <AppTextInput icon='email' placeholder='Username' />
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
