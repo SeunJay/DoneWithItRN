@@ -16,6 +16,7 @@ import ViewImageScreen from './app/screens/ViewImageScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import ListingEditScreen from './app/screens/ListingEditScreen';
+import RegisterScreen from './app/screens/RegisterScreen';
 
 const categories = [
   {
@@ -34,7 +35,7 @@ const categories = [
 
 export default function App() {
 
-  return <ListingEditScreen />;
+  return <RegisterScreen />;
 }
 
 const styles = StyleSheet.create({
