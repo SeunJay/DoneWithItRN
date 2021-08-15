@@ -34,8 +34,13 @@ const categories = [
 ];
 
 export default function App() {
-
-  return <RegisterScreen />;
+  return (
+    <Screen>
+      <ListItem image={require('./app/assets/mosh.jpg')} 
+        title='Seunjay'
+      />
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
