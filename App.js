@@ -15,6 +15,7 @@ import MessagesScreen from './app/screens/MessagesScreen';
 import ViewImageScreen from './app/screens/ViewImageScreen';
 import WelcomeScreen from './app/screens/WelcomeScreen';
 import LoginScreen from './app/screens/LoginScreen';
+import ListingEditScreen from './app/screens/ListingEditScreen';
 
 const categories = [
   {
@@ -32,9 +33,8 @@ const categories = [
 ];
 
 export default function App() {
-  const [category, setCategory] = useState(categories[0]);
 
-  return <LoginScreen />;
+  return <ListingEditScreen />;
 }
 
 const styles = StyleSheet.create({
