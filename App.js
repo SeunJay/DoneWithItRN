@@ -34,13 +34,7 @@ const categories = [
 ];
 
 export default function App() {
-  return (
-    <Screen>
-      <ListItem image={require('./app/assets/mosh.jpg')} 
-        title='Seunjay'
-      />
-    </Screen>
-  );
+  return <ListingEditScreen />;
 }
 
 const styles = StyleSheet.create({
