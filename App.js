@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, Text, Switch } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  Text,
+  Switch,
+  Button,
+  Image,
+} from 'react-native';
 import AppPicker from './app/components/AppPicker';
 import AppButton from './app/components/AppButton';
 import AppText from './app/components/AppText';
@@ -17,24 +25,40 @@ import WelcomeScreen from './app/screens/WelcomeScreen';
 import LoginScreen from './app/screens/LoginScreen';
 import ListingEditScreen from './app/screens/ListingEditScreen';
 import RegisterScreen from './app/screens/RegisterScreen';
-
-const categories = [
-  {
-    label: 'Furniture',
-    value: 1,
-  },
-  {
-    label: 'Clothing',
-    value: 2,
-  },
-  {
-    label: 'Cameras',
-    value: 3,
-  },
-];
+import * as ImagePicker from 'expo-image-picker';
+import ImageInput from './app/components/ImageInput';
 
 export default function App() {
-  return <ListingEditScreen />;
+  const [imageUri, setImageUri] = useState(null);
+
+  const requestPermission = async () => {
+    const { granted } = await ImagePicker.requestCameraPermissionsAsync();
+    if (!granted) alert('You need to enable permission to access the library');
+  };
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+  const selectImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      if (!result.cancelled) {
+        SetImageUri(result.uri);
+      }
+    } catch (error) {
+      console.log('Error reading the image ' + error);
+    }
+  };
+
+  return (
+    <Screen>
+      <ImageInput
+        imageUri={imageUri}
+        onChangeImage={(uri) => setImageUri(uri)}
+      />
+    </Screen>
+  );
 }
 
 const styles = StyleSheet.create({
