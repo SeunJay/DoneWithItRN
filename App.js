@@ -30,15 +30,6 @@ import ImageInput from './app/components/ImageInput';
 import ImageInputList from './app/components/ImageInputList';
 
 export default function App() {
-  // const [imageUris, setImageUris] = useState([]);
-
-  // const handleAdd = (uri) => {
-  //   setImageUris([uri, ...imageUris]);
-  // };
-
-  // const handleRemove = (uri) => {
-  //   setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
-  // };
 
   return <ListingEditScreen />;
 }

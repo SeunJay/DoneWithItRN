@@ -11,6 +11,7 @@ import {
 } from '../components/forms';
 import AppFormImagePicker from '../components/forms/AppFormImagePicker';
 import Screen from '../components/Screen';
+import uselocation from '../hooks/useLocation';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label('Title'),
@@ -78,6 +79,29 @@ const categories = [
 ];
 
 const ListingEditScreen = () => {
+  // const [location, setLocation] = useState();
+
+  // const getUserLocation = async () => {
+  //   try {
+  //     const { granted } = await Location.requestForegroundPermissionsAsync();
+  //     if (!granted) return;
+
+  //     const {
+  //       coords: { latitude, longitude },
+  //     } = await Location.getLastKnownPositionAsync();
+
+  //     setLocation({ latitude, longitude });
+  //   } catch (error) {
+  //     console.log(`An error occured: ${error}`);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getUserLocation();
+  // }, []);
+
+  const location = uselocation();
+
   return (
     <Screen style={styles.container}>
       <AppForm
@@ -88,7 +112,9 @@ const ListingEditScreen = () => {
           category: null,
           images: [],
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) =>
+          console.log('location ' + JSON.stringify(location))
+        }
         validationSchema={validationSchema}
       >
         <AppFormImagePicker name='images' />
