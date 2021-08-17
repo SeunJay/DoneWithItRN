@@ -21,6 +21,7 @@ const ImageInput = ({ imageUri, onChangeImage }) => {
   useEffect(() => {
     requestPermission();
   }, []);
+
   const handlePress = () => {
     if (!imageUri) selectImage();
     else
