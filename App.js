@@ -28,10 +28,69 @@ import RegisterScreen from './app/screens/RegisterScreen';
 import * as ImagePicker from 'expo-image-picker';
 import ImageInput from './app/components/ImageInput';
 import ImageInputList from './app/components/ImageInputList';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AuthNavigator } from './app/navigation/AuthNavigator';
+
+const Tweets = ({ navigation }) => (
+  <Screen>
+    <Text>Tweets</Text>
+    <Button
+      title='View Tweet'
+      onPress={() => navigation.navigate('TweetDetails', { id: 1 })}
+    />
+  </Screen>
+);
+
+const TweetsDetails = ({ navigation, route }) => {
+  return (
+    <Screen>
+      <Text>Tweets Details {route.params.id}</Text>
+      <Button title='View' onPress={() => navigation.navigate('Tweets')} />
+    </Screen>
+  );
+};
+
+const Account = () => (
+  <Screen>
+    <Text>Account</Text>
+  </Screen>
+);
+
+const Stack = createNativeStackNavigator();
+
+const FeedNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen name='Tweets' component={Tweets} />
+    <Stack.Screen name='TweetDetails' component={TweetsDetails} />
+  </Stack.Navigator>
+);
+
+const Tab = createBottomTabNavigator();
+
+const TabNavigator = () => (
+  <Tab.Navigator>
+    <Tab.Screen
+      name='Feed'
+      component={FeedNavigator}
+      options={{ headerShown: false }}
+    />
+    <Tab.Screen
+      name='Account'
+      component={Account}
+      options={{ headerShown: false }}
+    />
+  </Tab.Navigator>
+);
 
 export default function App() {
-
-  return <ListingEditScreen />;
+  return (
+    <NavigationContainer>
+      <AuthNavigator />
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
