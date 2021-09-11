@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import Screen from '../components/Screen';
 
 import colors from '../config/config';
+import routes from '../navigation/routes';
 
 const listings = [
   {
@@ -20,7 +21,7 @@ const listings = [
   },
 ];
 
-const ListingsScreen = () => {
+const ListingsScreen = ({ navigation }) => {
   return (
     <Screen style={styles.screen}>
       <FlatList
@@ -31,6 +32,7 @@ const ListingsScreen = () => {
             title={item.title}
             subTitle={`$${item.price}`}
             image={item.image}
+            onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
           />
         )}
       />
