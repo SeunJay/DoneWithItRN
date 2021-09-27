@@ -8,34 +8,24 @@ import listingsApi from '../api/listings';
 import routes from '../navigation/routes';
 import AppText from '../components/AppText';
 import AppButton from '../components/AppButton';
-
-// const listing = [
-//   {
-//     id: 1,
-//     title: 'Red jacket for sale',
-//     price: 100,
-//     image: require('../assets/jacket.jpg'),
-//   },
-//   {
-//     id: 2,
-//     title: 'Couch in great condition',
-//     price: 500,
-//     image: require('../assets/couch.jpg'),
-//   },
-// ];
+import ActivityIndicator from '../components/ActivityIndicator';
 
 const ListingsScreen = ({ navigation }) => {
   const [listings, setListings] = useState([]);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     loadListings();
   }, []);
 
-  console.log(listings);
+  
 
   const loadListings = async () => {
+    setLoading(true);
     const response = await listingsApi.getListings();
+    setLoading(false);
+
     if (!response.ok) return setError(true);
 
     setError(false);
@@ -50,6 +40,7 @@ const ListingsScreen = ({ navigation }) => {
           <AppButton title='Retry' onPress={loadListings} />
         </>
       )}
+      <ActivityIndicator visible={loading} />
       <FlatList
         data={listings}
         keyExtractor={(listing) => listing.id.toString()}
