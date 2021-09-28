@@ -9,28 +9,19 @@ import routes from '../navigation/routes';
 import AppText from '../components/AppText';
 import AppButton from '../components/AppButton';
 import ActivityIndicator from '../components/ActivityIndicator';
+import useApi from '../hooks/useApi';
 
 const ListingsScreen = ({ navigation }) => {
-  const [listings, setListings] = useState([]);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const {
+    data,
+    error,
+    loading,
+    request: loadListings,
+  } = useApi(listingsApi.getListings);
 
   useEffect(() => {
     loadListings();
   }, []);
-
-  
-
-  const loadListings = async () => {
-    setLoading(true);
-    const response = await listingsApi.getListings();
-    setLoading(false);
-
-    if (!response.ok) return setError(true);
-
-    setError(false);
-    setListings(response.data);
-  };
 
   return (
     <Screen style={styles.screen}>
@@ -42,7 +33,7 @@ const ListingsScreen = ({ navigation }) => {
       )}
       <ActivityIndicator visible={loading} />
       <FlatList
-        data={listings}
+        data={data}
         keyExtractor={(listing) => listing.id.toString()}
         renderItem={({ item }) => (
           <Card

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import * as Yup from 'yup';
 import CategoryPickerItem from '../components/CategoryPickerItem';
 
@@ -11,6 +11,7 @@ import {
 } from '../components/forms';
 import AppFormImagePicker from '../components/forms/AppFormImagePicker';
 import Screen from '../components/Screen';
+import listingsApi from '../api/listings';
 import uselocation from '../hooks/useLocation';
 
 const validationSchema = Yup.object().shape({
@@ -79,28 +80,18 @@ const categories = [
 ];
 
 const ListingEditScreen = () => {
-  // const [location, setLocation] = useState();
-
-  // const getUserLocation = async () => {
-  //   try {
-  //     const { granted } = await Location.requestForegroundPermissionsAsync();
-  //     if (!granted) return;
-
-  //     const {
-  //       coords: { latitude, longitude },
-  //     } = await Location.getLastKnownPositionAsync();
-
-  //     setLocation({ latitude, longitude });
-  //   } catch (error) {
-  //     console.log(`An error occured: ${error}`);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getUserLocation();
-  // }, []);
-
   const location = uselocation();
+
+  const handleSubmit = async (listing) => {
+    const response = await listingsApi.addListing(
+      { ...listing, location },
+      (progress) => console.log(`progress: ${progress}`)
+    );
+
+    if (!response.ok) return alert('Could not save listing');
+
+    alert('Success');
+  };
 
   return (
     <Screen style={styles.container}>
@@ -112,9 +103,7 @@ const ListingEditScreen = () => {
           category: null,
           images: [],
         }}
-        onSubmit={(values) =>
-          console.log('location ' + JSON.stringify(location))
-        }
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <AppFormImagePicker name='images' />
