@@ -6,14 +6,18 @@ const useApi = (apiFunc) => {
   const [loading, setLoading] = useState(false);
 
   const request = async () => {
-    setLoading(true);
-    const response = await apiFunc();
-    setLoading(false);
+    try {
+      setLoading(true);
+      const response = await apiFunc();
+      setLoading(false);
 
-    if (!response.ok) return setError(true);
+      if (!response.ok) return setError(true);
 
-    setError(false);
-    setData(response.data);
+      setError(false);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return {
